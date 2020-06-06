@@ -1,0 +1,9 @@
+alertmanager:
+  persistentVolume:
+    size: 1Gi
+server:
+  persistentVolume:
+    size: 1Gi
+  retention: "12h"
+pushgateway:
+  enabled: false

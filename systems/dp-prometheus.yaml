@@ -1,0 +1,43 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: db-prometheus
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      hostname: myprometheus
+      containers:
+      # Prometheus Server
+      - name: ap-server
+        iamge: prom/prometheus
+        volumeMounts:
+        - name: prometheus-config
+          mountPath: /etc/prometheus
+        - name: prometheus-data
+          mountPath: /prometheus
+        ports:
+        - name: prometheus-service
+          containerPort: 9090
+      # Fluentd Server
+      - name: log-server
+        iamge: fluent/fluentd
+        volumeMounts:
+        - name: prometheus-log
+          mountPath: /fluentd/log
+        ports:
+        - name: fluentd-service
+          containerPort: 24224
+      volumes:
+      - name: prometheus-config
+        hostPath:
+          path: /opt/git/myblog-config/config/prometheus
+      - name: prometheus-data
+        persistVolumeClaim:
+          claimName: pvc-prometheus-data
+      - name: prometheus-log
+        persistVolumeClaim:
+          claimName: pvc-prometheus-log

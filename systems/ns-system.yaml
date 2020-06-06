@@ -1,0 +1,20 @@
+kind: namespace
+apiVersion: v1
+metadata:
+  name: myblog-system
+  lables:
+    name: ingress-nginx
+---
+kind: namespace
+apiVersion: v1
+metadata:
+  name: ingress-nginx
+  lables:
+    name: ingress-nginx
+---
+kind: namespace
+apiVersion: v1
+metadata:
+  name: argocd
+  lables:
+    name: argocd

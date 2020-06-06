@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dp-redmine
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redmine
+    spec:
+      hostname: myredmine
+      containers:
+      # Database Service
+      - image: mariadb
+        name: db-server
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-redmine-db
+              key: root_password
+        ports:
+        - containerPort: 3306
+          name: redmine-db
+        volumeMounts:
+        - name: pv-redmine-db
+          mountPath: /var/lib/mysql
+      # Redmine Service
+      - image: redmine
+        name: ap-server
+        env:
+        - name: REDMINE_DB_MYSQL
+          value: myredmine
+        - name: REDMINE_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-redmine-db
+              key: root_password
+        ports:
+        - containerPort: 80
+          name: redmine-ap
+      # Fluentd Server
+      - name: log-server
+        iamge: fluent/fluentd
+        volumeMounts:
+        - name: prometheus-log
+          mountPath: /fluentd/log
+        ports:
+        - name: fluentd-service
+          containerPort: 24224
+      volumes:
+      - name: pv-redmine-db
+        persistentVolumeClaim:
+          claimName: pvc-redmine-db
+      - name: pv-redmine-log
+        persistentVolumeClaim:
+          claimName: pvc-redmine-log

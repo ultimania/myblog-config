@@ -1,0 +1,6 @@
+rbac:
+  create: true
+master:
+  service_port: 8080
+persistence:
+  size: 1Gi
