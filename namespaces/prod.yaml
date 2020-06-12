@@ -1,6 +1,6 @@
-kind: namespace
+kind: Namespace
 apiVersion: v1
 metadata:
   name: myblog-prod
-  lables:
+  labels:
     name: myblog-prod

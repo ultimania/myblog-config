@@ -1,20 +1,20 @@
-kind: namespace
+kind: Namespace
 apiVersion: v1
 metadata:
   name: myblog-system
-  lables:
+  labels:
     name: ingress-nginx
 ---
-kind: namespace
+kind: Namespace
 apiVersion: v1
 metadata:
   name: ingress-nginx
-  lables:
+  labels:
     name: ingress-nginx
 ---
-kind: namespace
+kind: Namespace
 apiVersion: v1
 metadata:
   name: argocd
-  lables:
+  labels:
     name: argocd

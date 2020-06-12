@@ -7,3 +7,5 @@ server:
   retention: "12h"
 pushgateway:
   enabled: false
+service:
+  type: LoadBalancer

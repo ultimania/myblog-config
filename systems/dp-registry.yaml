@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: registry
+  namespace: myblog-system
 spec:
   replicas: 1
   selector:
@@ -13,12 +14,12 @@ spec:
         app: registry
     spec:
       volumes:
-      - name: private-registry-volume
+      - name: pv-system-registry
         persistentVolumeClaim:
           claimName: pvc-system-registry
       containers:
         - name: registry
-          image: registry:2.3.0
+          image: registry
           ports:
           - containerPort: 5000
           volumeMounts:

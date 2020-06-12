@@ -1,47 +1,25 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-redmine-db
+  name: pv-redmine1
 spec:
   capacity:
-    storage: 10Gi
+    storage: 100Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Recycle
   hostPath:
-    path: /opt/kube/volumes/pv-redmine-db
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: pvc-redmine-db
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
+    path: /opt/kube/volumes/pv-redmine1
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-redmine-log
+  name: pv-redmine2
 spec:
   capacity:
-    storage: 10Gi
+    storage: 100Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Recycle
   hostPath:
-    path: /opt/kube/volumes/pv-redmine-log
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: pvc-redmine-log
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
+    path: /opt/kube/volumes/pv-redmine2
